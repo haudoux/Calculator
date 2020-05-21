@@ -1,0 +1,61 @@
+syntax = "proto3";
+
+package calculator;
+option go_package = "calculatorpb";
+
+////////////////////////////////////
+//Add
+message AddRequest {
+    int32 number = 1;
+}
+message AddResponse {
+    int32 result = 1;
+}
+////////////////////////////////////
+
+////////////////////////////////////
+//Multiplications
+
+message SimpleCalc{
+    int32 first_nb = 1;
+    int32 second_nb = 2;
+}
+message MultiplicationRequest{
+    SimpleCalc numbers = 1;
+}
+message MultiplicationResponse{
+    int32 Result = 1;
+}
+////////////////////////////////////
+
+////////////////////////////////////
+//Average
+message AverageRequest{
+    float number = 1;
+}
+
+message AverageResponse{
+    float result = 2;
+}
+
+////////////////////////////////////
+//Fibonacci
+message FibonacciRequest {
+    int32 iterations = 1;
+}
+message FibonacciResponse{
+    int32 result = 1;
+    int32 iterations = 2;
+}
+////////////////////////////////////
+
+service CalculatorService {
+    //Unary
+    rpc Multiplication(MultiplicationRequest) returns (MultiplicationResponse) {};
+    //Stream client
+    rpc Add(stream AddRequest) returns (AddResponse) {};
+    //Stream server
+    rpc Fibonacci(FibonacciRequest) returns (stream FibonacciResponse) {};
+    //Stream Bidirectionnal
+    rpc Average(stream AverageRequest) returns (stream AverageResponse) {};
+}

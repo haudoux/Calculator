@@ -1,0 +1,1 @@
+protoc.exe calculatorpb/calculator.proto --go_out=plugins=grpc:.
